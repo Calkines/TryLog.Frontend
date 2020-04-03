@@ -8,6 +8,9 @@
         <v-btn to="/login" text rounded>Acesso</v-btn>
         <v-btn to="/dashboard" text rounded>Dashboard</v-btn>
       </v-app-bar>
+      <v-container>
+        <UserInformation class="mt-3" v-show="authenticated" />
+      </v-container>
       <!-- Login Module -->
       <v-content>
         <router-view></router-view>
@@ -18,15 +21,22 @@
 </template>
 <script>
 import Footer from "./views/Footer";
+import UserInformation from "./components/UserInformation";
 
 export default {
   components: {
-    Footer
+    Footer,
+    UserInformation
   },
   data() {
     return {
-      //
+      authenticated: false
     };
+  },
+  methods: {
+    isUserLoggedOn() {
+      this.authenticated = false;
+    }
   }
 };
 </script>
