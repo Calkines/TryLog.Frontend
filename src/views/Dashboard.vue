@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ml-5 mr-5">
     <UserInformation class="mt-5" />
 
     <h1 class="mt-5 text-center">Dashboard</h1>
