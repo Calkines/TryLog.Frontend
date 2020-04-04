@@ -8,6 +8,7 @@
       item-key="id"
       class="elevation-1"
       :single-select="false"
+      :search="search"
       show-select
     >
       <!-- Filters -->
@@ -64,7 +65,7 @@
           </v-col> -->
             <v-col class="d-flex" cols="12" lg="8" md="6" sm="12">
               <v-text-field
-                label="Buscar"
+                label="Buscar na base"
                 prepend-inner-icon="fas fa-search"
               ></v-text-field>
             </v-col>
@@ -72,6 +73,18 @@
           <v-row>
             <v-col class="d-flex justify-end mr-5">
               <v-btn class="primary" end>Pesquisar</v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-spacer></v-spacer>
+            <v-col class="d-flex justify-end mr-5" cols="4">
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="buscar na tabela"
+                single-line
+                hide-details
+              ></v-text-field>
             </v-col>
           </v-row>
         </v-container>
@@ -90,11 +103,14 @@
   </div>
 </template>
 <script>
+import eventsData from "../data/events.json";
+
 export default {
-  name: "DashboardTableLog",
+  name: "DetalhesTableLog",
 
   data() {
     return {
+      search: "",
       selectSlot: false,
       selectedFieldOrders: [],
       selectedEnviroments: [],
@@ -129,58 +145,7 @@ export default {
           align: "right"
         }
       ],
-      events: [
-        {
-          id: 1,
-          severity: "success",
-          event: {
-            description: "Descricao do log de erro",
-            origin: "Origem do log",
-            occurrenceDate: "24/05/2019 - 09:53:00"
-          },
-          quantity: 951
-        },
-        {
-          id: 2,
-          severity: "error",
-          event: {
-            description: "Descricao do log de erro",
-            origin: "Origem do log",
-            occurrenceDate: "24/05/2019 - 09:53:00"
-          },
-          quantity: 888
-        },
-        {
-          id: 3,
-          severity: "warning",
-          event: {
-            description: "Descricao do log de erro",
-            origin: "Origem do log",
-            occurrenceDate: "24/05/2019 - 09:53:00"
-          },
-          quantity: 15
-        },
-        {
-          id: 4,
-          severity: "error",
-          event: {
-            description: "Descricao do log de erro",
-            origin: "Origem do log",
-            occurrenceDate: "24/05/2019 - 09:53:00"
-          },
-          quantity: 205
-        },
-        {
-          id: 5,
-          severity: "success",
-          event: {
-            description: "Descricao do log de erro",
-            origin: "Origem do log",
-            occurrenceDate: "24/05/2019 - 09:53:00"
-          },
-          quantity: 573
-        }
-      ]
+      events: eventsData
     };
   },
   methods: {

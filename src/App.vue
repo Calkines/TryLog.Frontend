@@ -3,10 +3,11 @@
     <v-app>
       <v-app-bar height="40px" app color="primary lighten-1" dark>
         <v-toolbar-title class="text-center">TryLog </v-toolbar-title>
+
         <v-spacer></v-spacer>
         <v-btn to="/" class="mr-1" text rounded>Início</v-btn>
         <v-btn to="/login" text rounded>Acesso</v-btn>
-        <v-btn to="/dashboard" text rounded>Dashboard</v-btn>
+        <v-btn to="/detalhes" text rounded>Detalhes</v-btn>
       </v-app-bar>
       <v-container>
         <UserInformation class="mt-3" v-show="authenticated" />
