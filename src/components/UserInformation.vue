@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="pb-0 mb-0">
     <v-row>
       <v-col class="d-flex flex-column align-self-start justify-center">
         <v-card color="grey lighten-4">
