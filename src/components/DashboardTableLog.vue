@@ -14,7 +14,7 @@
       <template v-slot:top>
         <v-container>
           <v-row>
-            <v-col class="d-flex" cols="12" sm="2">
+            <v-col class="d-flex" cols="12" lg="2" md="3" sm="6">
               <v-select
                 v-model="selectedEnviroments"
                 :items="lstEnvironments"
@@ -36,7 +36,7 @@
                 </template>
               </v-select>
             </v-col>
-            <v-col class="d-flex" cols="12" sm="3">
+            <v-col class="d-flex" cols="12" lg="2" md="3" sm="6">
               <v-select
                 v-model="selectedFieldOrders"
                 :items="lstAvaiableFieldOrders"
@@ -62,7 +62,7 @@
               @click:clear.prevent="clearSelected"
             ></v-select>
           </v-col> -->
-            <v-col class="d-flex" cols="12" sm="6">
+            <v-col class="d-flex" cols="12" lg="8" md="6" sm="12">
               <v-text-field
                 label="Buscar"
                 prepend-inner-icon="fas fa-search"
@@ -71,7 +71,7 @@
           </v-row>
           <v-row>
             <v-col class="d-flex justify-end mr-5">
-              <v-btn end>Pesquisar</v-btn>
+              <v-btn class="primary" end>Pesquisar</v-btn>
             </v-col>
           </v-row>
         </v-container>
