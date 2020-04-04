@@ -9,12 +9,13 @@
         <v-btn to="/login" text rounded>Acesso</v-btn>
         <v-btn to="/detalhes" text rounded>Detalhes</v-btn>
       </v-app-bar>
-      <v-container>
-        <UserInformation class="mt-3" v-show="authenticated" />
-      </v-container>
+
       <!-- Login Module -->
       <v-content>
-        <router-view></router-view>
+        <v-container fill-height fluid>
+          <UserInformation v-show="authenticated" />
+          <router-view></router-view>
+        </v-container>
       </v-content>
       <Footer />
     </v-app>
@@ -31,12 +32,12 @@ export default {
   },
   data() {
     return {
-      authenticated: false
+      authenticated: true
     };
   },
   methods: {
     isUserLoggedOn() {
-      this.authenticated = false;
+      this.authenticated = true;
     }
   }
 };
