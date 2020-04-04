@@ -33,6 +33,10 @@ const routes = [
     path: "/signup",
     name: "Registro",
     component: () => import("../views/Signup.vue")
+  },
+  {
+    path: "*",
+    component: () => import("../components/NotFound.vue")
   }
 ];
 
