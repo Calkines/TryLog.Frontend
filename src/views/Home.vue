@@ -3,13 +3,15 @@
     <v-container>
       <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
 
-      <h1 class="text-center">Resumo das operações</h1>
+      <h1 class="text-center mb-5">Resumo das operações</h1>
 
       <v-row>
         <v-col
+          class="d-flex justify-center"
+          fluid
           v-for="statistic in statistics"
           :key="`${statistic.title}`"
-          cols="6"
+          cols="12"
           sm="4"
           md="3"
           lg="3"
