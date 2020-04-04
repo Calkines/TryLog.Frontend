@@ -16,7 +16,6 @@
         <v-text-field
           :type="showPassword ? 'text' : 'password'"
           label="Senha"
-          :rules="[rules.password, rules.length(6)]"
           prepend-icon="fas fa-lock"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
@@ -45,8 +44,8 @@ export default {
       isLoading: false,
       rules: {
         email: v =>
-          (v || "").match(
-            /^([a-zA-Z0-9_\-\\.]+)@([a-zA-Z0-9_\-\\.]+)\.([a-zA-Z]{2,5})$/g
+          /^([a-zA-Z0-9_\-\\.]+)@([a-zA-Z0-9_\-\\.]+)\.([a-zA-Z]{2,5})$/g.test(
+            v || ""
           ) || "Por favor informe um e-mail valido",
         length: len => v =>
           (v || "").length >= len ||
