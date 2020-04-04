@@ -1,39 +1,43 @@
 <template>
-  <v-card width="40%" min-width="400px" class="mx-auto mt-5">
-    <v-card-title>
-      <v-spacer></v-spacer>
-      <h2>Credenciais</h2>
-      <v-spacer></v-spacer>
-    </v-card-title>
+  <v-container fill-height fluid>
+    <v-row>
+      <v-col class="d-flex justify-center align-self-start">
+        <v-card width="40%" min-width="400px">
+          <v-card-title class="justify-center">
+            <h2>Credenciais</h2>
+          </v-card-title>
 
-    <v-card-text>
-      <v-form>
-        <v-text-field
-          label="Usuário"
-          :rules="[rules.email]"
-          prepend-icon="fas fa-user-tag"
-        ></v-text-field>
-        <v-text-field
-          :type="showPassword ? 'text' : 'password'"
-          label="Senha"
-          prepend-icon="fas fa-lock"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="showPassword = !showPassword"
-        ></v-text-field>
-      </v-form>
-    </v-card-text>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn color="success" x-small rounded>Registrar</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn color="info" x-small rounded>Acessar</v-btn>
-      <v-spacer></v-spacer>
-    </v-card-actions>
-    <v-card-actions>
-      <v-btn text x-small class="mx-auto">Recuperar senha</v-btn>
-    </v-card-actions>
-  </v-card>
+          <v-card-text>
+            <v-form>
+              <v-text-field
+                label="Usuário"
+                :rules="[rules.email]"
+                prepend-icon="fas fa-user-tag"
+              ></v-text-field>
+              <v-text-field
+                :type="showPassword ? 'text' : 'password'"
+                label="Senha"
+                prepend-icon="fas fa-lock"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showPassword = !showPassword"
+              ></v-text-field>
+            </v-form>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="success" x-small rounded>Registrar</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="info" x-small rounded>Acessar</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn text x-small class="mx-auto">Recuperar senha</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
 export default {
