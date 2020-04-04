@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "severity": "success",
+    "event": {
+      "description": "Descricao do log de erro",
+      "origin": "Origem do log",
+      "occurrenceDate": "24/05/2019 - 09:53:00"
+    },
+    "quantity": 951
+  },
+  {
+    "id": 2,
+    "severity": "error",
+    "event": {
+      "description": "Descricao do log de erro",
+      "origin": "Origem do log",
+      "occurrenceDate": "24/05/2019 - 09:53:00"
+    },
+    "quantity": 888
+  },
+  {
+    "id": 3,
+    "severity": "warning",
+    "event": {
+      "description": "Descricao do log de erro",
+      "origin": "Origem do log",
+      "occurrenceDate": "24/05/2019 - 09:53:00"
+    },
+    "quantity": 15
+  },
+  {
+    "id": 4,
+    "severity": "error",
+    "event": {
+      "description": "Descricao do log de erro",
+      "origin": "Origem do log",
+      "occurrenceDate": "24/05/2019 - 09:53:00"
+    },
+    "quantity": 205
+  },
+  {
+    "id": 5,
+    "severity": "success",
+    "event": {
+      "description": "Descricao do log de erro",
+      "origin": "Origem do log",
+      "occurrenceDate": "24/05/2019 - 09:53:00"
+    },
+    "quantity": 573
+  }
+]

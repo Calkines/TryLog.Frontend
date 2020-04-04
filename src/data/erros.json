@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Erros hora",
+    "erros": [423, 446, 675, 510, 590, 610, 760, 639],
+    "color": "purple",
+    "labels": ["6AM", "8AM", "9AM", "10AM", "12PM", "2PM", "4PM", "6PM"]
+  },
+  {
+    "title": "Erros semana",
+    "erros": [325, 123, 273, 573],
+    "color": "grey",
+    "labels": ["Semana 1", "Semana 2", "Semana 3", "Semana 4"]
+  },
+  {
+    "title": "Erros mês",
+    "erros": [746, 415, 943, 1372, 983, 651, 837, 639],
+    "color": "cyan",
+    "labels": ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Aug"]
+  }
+]

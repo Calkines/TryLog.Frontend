@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Erros",
+    "title_tooltip": "Soma dos erros, apenas classficados como erro",
+    "value": "725"
+  },
+  {
+    "title": "Registrando",
+    "title_tooltip": "Tempo desde de o início do monitoramento",
+    "value": "83d"
+  },
+  {
+    "title": "IM",
+    "title_tooltip": "Intervalo médio entre um erro e outro",
+    "value": "23m"
+  },
+  {
+    "title": "Erros abertos",
+    "title_tooltip": "Quantidade de erros não arquivados",
+    "value": "245"
+  }
+]
