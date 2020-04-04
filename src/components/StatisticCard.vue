@@ -3,10 +3,20 @@
     <!-- Using the elevation prop -->
     <v-hover>
       <template v-slot="{ hover }">
-        <v-card :elevation="hover ? 5 : 2" class="mx-auto pa-6">
+        <v-card
+          :elevation="hover ? 5 : 2"
+          class="mx-auto pa-6"
+          height="200px"
+          width="200px"
+        >
           <v-tooltip :open-delay="800" top>
             <template v-slot:activator="{ on }">
-              <v-card-title v-on="on">{{ statistic.title }}</v-card-title>
+              <v-card-title
+                class="d-inline-block text-truncate"
+                style="max-width: 110%;"
+                v-on="on"
+                >{{ statistic.title }}</v-card-title
+              >
             </template>
             <span>{{ statistic.title_tooltip }}</span>
           </v-tooltip>
