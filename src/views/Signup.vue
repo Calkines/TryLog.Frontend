@@ -1,8 +1,9 @@
 <template>
   <v-container>
-    <v-row class="ml-5">
-      <v-col cols="6">
-        <h1>Página de Registro</h1>
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-col cols="10" xl="6" lg="6" sm="6" xs="10">
+        <h1>Registro</h1>
         <v-form ref="signUpForm" v-model="formValidity">
           <v-text-field label="Nome" type="text" prepend-icon="fas fa-user" />
           <v-text-field
@@ -30,6 +31,7 @@
           >
         </v-form>
       </v-col>
+      <v-spacer></v-spacer>
     </v-row>
   </v-container>
 </template>
