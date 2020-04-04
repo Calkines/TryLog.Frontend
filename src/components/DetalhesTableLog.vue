@@ -77,7 +77,7 @@
           </v-row>
           <v-row>
             <v-spacer></v-spacer>
-            <v-col class="d-flex justify-end mr-5" cols="4">
+            <v-col class="d-flex justify-end mr-5" cols="6" lg="4" xl="2">
               <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
