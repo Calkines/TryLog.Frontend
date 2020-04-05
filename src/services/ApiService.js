@@ -12,5 +12,14 @@ const apiClient = axios.create({
 export default {
   getStatistics() {
     return apiClient.get("/statistics");
+  },
+  getErrors() {
+    return apiClient.get("/errors");
+  },
+  getLogs() {
+    return apiClient.get("/events");
+  },
+  getLogs(itensPerPage, startPage) {
+    return apiClient.get(`/events?_limit=${itensPerPage}&_page=${startPage}`);
   }
 };
