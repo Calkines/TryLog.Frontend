@@ -2,7 +2,7 @@
   <v-container fill-height fluid>
     <v-row>
       <v-col class="d-flex justify-center align-self-start">
-        <v-card width="40%" min-width="400px">
+        <v-card width="400px">
           <v-card-title class="justify-center">
             <h2>Credenciais</h2>
           </v-card-title>
