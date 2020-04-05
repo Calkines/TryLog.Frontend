@@ -3,13 +3,17 @@
     <v-data-table
       v-model="selected"
       :headers="headers"
-      :items="events"
-      :items-per-page="5"
+      :items="dataLogs.logs"
       item-key="id"
       class="elevation-1"
       :single-select="false"
       :search="search"
       show-select
+      ref="myDataTb"
+      :page.sync="page"
+      :items-per-page="itemsPerPage"
+      @page-count="pageCount = $event"
+      hide-default-footer
     >
       <!-- Filters -->
       <template v-slot:top>
@@ -72,7 +76,7 @@
           </v-row>
           <v-row>
             <v-col class="d-flex justify-end mr-5">
-              <v-btn class="primary" end>Pesquisar</v-btn>
+              <v-btn class="primary" end @click="pesquisar">Pesquisar</v-btn>
             </v-col>
           </v-row>
           <v-row>
@@ -100,18 +104,49 @@
         <div>{{ item.event.occurrenceDate }}</div>
       </template>
     </v-data-table>
+    <v-container fluid>
+      <v-row class="d-flex flex-row text-center" justify="end" align="center">
+        <v-col :class="classLegendPages">
+          <span> Página {{ page }} de {{ dataLogs.logsTotalPages }} </span>
+        </v-col>
+        <v-col :class="classPaginator">
+          <v-pagination
+            v-model="page"
+            :length="dataLogs.logsTotalPages"
+            @input="fetchData"
+            :total-visible="8"
+          ></v-pagination>
+        </v-col>
+        <v-col :class="classPagesPerPage">
+          <v-text-field
+            :value="itemsPerPage"
+            label="Itens por página"
+            type="number"
+            min="-1"
+            max="15"
+            @input="settedItemsPerPage = parseInt($event, 10)"
+            @keydown.enter="pesquisar"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 <script>
-import eventsData from "../data/events.json";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "DetalhesTableLog",
 
   data() {
     return {
+      internalLogs: [],
+      page: 1,
+      itemsPerPage: 3,
+      settedItemsPerPage: 5,
       search: "",
       selectSlot: false,
+      totalPages: this.$store.state.log.logsTotalPages,
       selectedFieldOrders: [],
       selectedEnviroments: [],
       lstEnvironments: [
@@ -144,8 +179,7 @@ export default {
           value: "quantity",
           align: "right"
         }
-      ],
-      events: eventsData
+      ]
     };
   },
   methods: {
@@ -156,6 +190,19 @@ export default {
     },
     clearSelected() {
       this.selectedFieldsFind = [];
+    },
+    pesquisar() {
+      this.fetchData();
+      this.page = 1;
+    },
+    fetchData() {
+      let _itemsPerPage = this.settedItemsPerPage ?? 5;
+      let _pageStart = this.page ?? 1;
+      this.$store.dispatch("fetchLogs", {
+        itemsPerPage: _itemsPerPage,
+        startPage: _pageStart
+      });
+      this.itemsPerPage = this.settedItemsPerPage;
     }
   },
   watch: {
@@ -163,6 +210,57 @@ export default {
       if (val) this.selectedEnviroments = [this.selectedEnviroments];
       else this.selectedEnviroments = this.selectedEnviroments[0] || "Foo";
     }
+  },
+  computed: {
+    Breakpoint() {
+      return this.$vuetify.breakpoint.name;
+    },
+    ...mapState({
+      dataLogs: "log"
+    }),
+    classLegendPages() {
+      let stringClasse = "";
+      let bpName = this.$vuetify.breakpoint.name;
+      stringClasse += bpName == "xs" ? "col-12" : "";
+      stringClasse += bpName == "sm" ? "col-2" : "";
+      stringClasse += bpName == "md" ? "col-4" : "";
+      stringClasse += bpName == "lg" ? "col-4" : "";
+      return stringClasse;
+    },
+    classPaginator() {
+      let stringClasse = "";
+      let bpName = this.$vuetify.breakpoint.name;
+      stringClasse += bpName == "xs" ? "col-12" : "";
+      stringClasse += bpName == "sm" ? "col-8" : "";
+      stringClasse += bpName == "md" ? "col-4" : "";
+      stringClasse += bpName == "lg" ? "col-4" : "";
+      return stringClasse;
+    },
+    classPagesPerPage() {
+      let stringClasse = "";
+      let bpName = this.$vuetify.breakpoint.name;
+      stringClasse += bpName == "xs" ? "col-4" : "";
+      stringClasse += bpName == "sm" ? "col-2" : "";
+      stringClasse += bpName == "md" ? "col-4" : "";
+      stringClasse += bpName == "lg" ? "col-4" : "";
+      return stringClasse;
+    }
+  },
+  created() {
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type == "SET_LOGS_TOTAL_PAGES") {
+        if (this.page > mutation.payload) {
+          this.page = 1;
+          this.fetchData();
+        }
+      }
+    });
+  },
+  beforeDestroy() {
+    this.unsubscribe();
+  },
+  mounted() {
+    this.fetchData();
   }
 };
 </script>
