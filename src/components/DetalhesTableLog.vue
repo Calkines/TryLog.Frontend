@@ -257,7 +257,9 @@ export default {
     });
   },
   beforeDestroy() {
-    this.unsubscribe();
+    if (typeof this.unsubscribe == "function") {
+      this.unsubscribe();
+    }
   },
   mounted() {
     this.fetchData();

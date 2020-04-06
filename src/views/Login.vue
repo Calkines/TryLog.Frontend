@@ -26,7 +26,9 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="success" x-small rounded>Registrar</v-btn>
+            <v-btn color="success" :to="'/signup'" x-small rounded
+              >Registrar</v-btn
+            >
             <v-spacer></v-spacer>
             <v-btn color="info" x-small rounded>Acessar</v-btn>
             <v-spacer></v-spacer>

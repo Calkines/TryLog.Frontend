@@ -5,7 +5,12 @@
       <v-col cols="10" xl="6" lg="6" sm="6" xs="10">
         <h1>Registro</h1>
         <v-form ref="signUpForm" v-model="formValidity">
-          <v-text-field label="Nome" type="text" prepend-icon="fas fa-user" />
+          <v-text-field
+            v-model="name"
+            label="Nome"
+            type="text"
+            prepend-icon="fas fa-user"
+          />
           <v-text-field
             v-model="email"
             label="E-mail"
@@ -14,6 +19,7 @@
             prepend-icon="fas fa-user-tag"
           />
           <v-text-field
+            v-model="password"
             :type="showPassword ? 'text' : 'password'"
             label="Senha"
             :rules="[rules.password, rules.length(6)]"
@@ -39,6 +45,8 @@
 <script>
 export default {
   data: () => ({
+    password: "",
+    name: "",
     email: "",
     termsAccepted: false,
     showPassword: false,
@@ -56,6 +64,15 @@ export default {
         (v || "").match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
         "A senha precisa ter uma letra maiuscúla, um caracter número, e um caracter especial",
       required: v => !!v || "Este campo é necessário"
+    },
+    register() {
+      const userObj = {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      };
+      console.log("user: ", userObj);
+      this.$store.dispatch("registerUser", { user: userObj });
     }
   }),
   methods: {
@@ -66,8 +83,11 @@ export default {
       this.$refs.signUpForm.resetValidation();
     },
     validateForm(event) {
+      event.preventDefault();
       let isValid = this.$refs.signUpForm.validate();
-      if (!isValid) event.preventDefault();
+      if (isValid) {
+        this.register();
+      }
     }
   }
 };

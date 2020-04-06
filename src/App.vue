@@ -13,6 +13,7 @@
       <!-- Login Module -->
       <v-content>
         <v-container fluid>
+          <!-- Notifications are avaiable for everyone-->
           <NotificationContainer />
 
           <UserInformation v-show="authenticated" />

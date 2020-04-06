@@ -21,5 +21,8 @@ export default {
   },
   getLogs(itensPerPage, startPage) {
     return apiClient.get(`/events?_limit=${itensPerPage}&_page=${startPage}`);
+  },
+  registerUser(user) {
+    return apiClient.post("/registerUser", user);
   }
 };

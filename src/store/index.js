@@ -5,7 +5,7 @@ import error from "../store/modules/errors";
 import log from "../store/modules/logs";
 import statistic from "../store/modules/statistics";
 import * as notification from "@/store/modules/notification";
-
+import user from "@/store/modules/user";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,6 +13,7 @@ export default new Vuex.Store({
     error,
     log,
     statistic,
-    notification
+    notification,
+    user
   }
 });
