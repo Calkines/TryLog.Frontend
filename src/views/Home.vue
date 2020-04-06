@@ -7,7 +7,7 @@
       <v-col
         class="d-flex justify-center align-self-center"
         fluid
-        v-for="statistic in dataStatistics"
+        v-for="statistic in dataStatistics.statistics"
         :key="`${statistic.title}`"
         cols="12"
         sm="4"
@@ -56,7 +56,7 @@ export default {
   computed: {
     ...mapState({
       dataGraphError: "error",
-      dataStatistics: "statistics"
+      dataStatistics: "statistic"
     }),
     ...mapGetters({
       errorLength: "errorsLength"
