@@ -12,7 +12,9 @@
 
       <!-- Login Module -->
       <v-content>
-        <v-container fill-height fluid>
+        <v-container fluid>
+          <NotificationContainer />
+
           <UserInformation v-show="authenticated" />
           <router-view></router-view>
         </v-container>
@@ -24,15 +26,17 @@
 <script>
 import Footer from "./views/Footer";
 import UserInformation from "./components/UserInformation";
+import NotificationContainer from "./components/NotificationContainer";
 
 export default {
   components: {
     Footer,
-    UserInformation
+    UserInformation,
+    NotificationContainer
   },
   data() {
     return {
-      authenticated: true
+      authenticated: false
     };
   },
   methods: {
