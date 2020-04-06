@@ -7,7 +7,7 @@
       <v-col
         class="d-flex justify-center align-self-center"
         fluid
-        v-for="statistic in statistics"
+        v-for="statistic in dataStatistics"
         :key="`${statistic.title}`"
         cols="12"
         sm="4"
@@ -19,8 +19,13 @@
     </v-row>
 
     <v-row class="mt-5">
-      <v-col v-for="erro in erros" :key="`${erro.title}`" cols="12" md="4">
-        <ErrosGraph :erro="erro" />
+      <v-col
+        v-for="ele in dataGraphError.errors"
+        :key="`${ele.title}`"
+        cols="12"
+        md="4"
+      >
+        <ErrosGraph :erro="ele" />
       </v-col>
     </v-row>
   </v-container>
@@ -32,8 +37,7 @@
 import ErrosGraph from "../components/ErrosGraph";
 import StatisticCard from "../components/StatisticCard";
 import api from "../services/ApiService";
-
-import errosData from "../data/erros.json";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Home",
@@ -42,20 +46,21 @@ export default {
     StatisticCard
   },
   data() {
-    return {
-      erros: errosData,
-      statistics: []
-    };
+    return {};
   },
   created() {
-    api
-      .getStatistics()
-      .then(r => {
-        this.statistics = r.data;
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    this.$store.dispatch("fetchErrors");
+    this.$store.dispatch("fetchStatistics");
+  },
+  methods: {},
+  computed: {
+    ...mapState({
+      dataGraphError: "error",
+      dataStatistics: "statistics"
+    }),
+    ...mapGetters({
+      errorLength: "errorsLength"
+    })
   }
 };
 </script>
