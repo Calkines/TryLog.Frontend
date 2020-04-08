@@ -35,9 +35,10 @@
                   <v-chip v-if="index === 0" x-small>
                     <span>{{ item.description }}</span>
                   </v-chip>
-                  <span v-if="index === 1" class="grey--text caption"
-                    >(+{{ selectedEnviroments.length - 1 }} outros)</span
-                  >
+                  <span
+                    v-if="index === 1"
+                    class="grey--text caption"
+                  >(+{{ selectedEnviroments.length - 1 }} outros)</span>
                 </template>
               </v-select>
             </v-col>
@@ -66,12 +67,9 @@
               clearable
               @click:clear.prevent="clearSelected"
             ></v-select>
-          </v-col> -->
+            </v-col>-->
             <v-col class="d-flex" cols="12" lg="8" md="6" sm="12">
-              <v-text-field
-                label="Buscar na base"
-                prepend-inner-icon="fas fa-search"
-              ></v-text-field>
+              <v-text-field label="Buscar na base" prepend-inner-icon="fas fa-search"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -94,9 +92,7 @@
         </v-container>
       </template>
       <template v-slot:item.severity="{ item }">
-        <v-chip :color="getColor(item.severity)" dark>{{
-          item.severity
-        }}</v-chip>
+        <v-chip :color="getColor(item.severity)" dark>{{ item.severity }}</v-chip>
       </template>
       <template v-slot:item.event="{ item }">
         <div>{{ item.event.description }}</div>
@@ -107,7 +103,7 @@
     <v-container fluid>
       <v-row class="d-flex flex-row text-center" justify="end" align="center">
         <v-col :class="classLegendPages">
-          <span> Página {{ page }} de {{ dataLogs.logsTotalPages }} </span>
+          <span>Página {{ page }} de {{ dataLogs.logsTotalPages }}</span>
         </v-col>
         <v-col :class="classPaginator">
           <v-pagination
@@ -179,7 +175,8 @@ export default {
           value: "quantity",
           align: "right"
         }
-      ]
+      ],
+      unsubscribe: null
     };
   },
   methods: {
@@ -247,7 +244,7 @@ export default {
     }
   },
   created() {
-    this.$store.subscribe((mutation, state) => {
+    this.unsubscribe = this.$store.subscribe((mutation, state) => {
       if (mutation.type == "SET_LOGS_TOTAL_PAGES") {
         if (this.page > mutation.payload) {
           this.page = 1;
