@@ -5,12 +5,7 @@
       <v-col cols="10" xl="6" lg="6" sm="6" xs="10">
         <h1>Registro</h1>
         <v-form ref="signUpForm" v-model="formValidity">
-          <v-text-field
-            v-model="name"
-            label="Nome"
-            type="text"
-            prepend-icon="fas fa-user"
-          />
+          <v-text-field v-model="name" label="Nome" type="text" prepend-icon="fas fa-user" />
           <v-text-field
             v-model="email"
             label="E-mail"
@@ -32,9 +27,7 @@
             label="Aceita os termos e condições?"
             :rules="[rules.required]"
           />
-          <v-btn type="submit" color="primary" @click="validateForm($event)"
-            >Enviar</v-btn
-          >
+          <v-btn type="submit" color="primary" @click="validateForm($event)">Enviar</v-btn>
         </v-form>
       </v-col>
       <v-spacer></v-spacer>
@@ -71,8 +64,10 @@ export default {
         email: this.email,
         password: this.password
       };
-      console.log("user: ", userObj);
-      this.$store.dispatch("registerUser", { user: userObj });
+      this.$store.dispatch("registerUser", { user: userObj }).then(() => {
+        setInterval(() => {}, 500);
+        this.$router.push({ name: "Home" });
+      });
     }
   }),
   methods: {
