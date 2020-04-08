@@ -1,4 +1,5 @@
 import api from "@/services/ApiService";
+import axios from "axios";
 export default {
   state: {
     user: {}
@@ -6,6 +7,7 @@ export default {
   mutations: {
     SET_USER(state, user) {
       state.user = user;
+      localStorage.setItem("user", JSON.stringify(user));
     }
   },
   actions: {
@@ -13,8 +15,7 @@ export default {
       api
         .registerUser(user)
         .then(r => {
-          console.log("Value of user in action: ", user);
-          commit("SET_USER", user);
+          commit("SET_USER", r.data);
         })
         .catch(er => {
           const notification = {
@@ -23,6 +24,21 @@ export default {
             detail: er
           };
           dispatch("notification/add", notification, { root: true });
+        });
+    },
+    realizarLogin({ commit }, { user }) {
+      api
+        .realizarLogin(user)
+        .then(r => {
+          commit("SET_USER", r.data);
+        })
+        .catch(er => {
+          const notification = {
+            type: "error",
+            message: "An error has ocurred",
+            detail: er
+          };
+          dispatch("notification/add", notification, { rrot: true });
         });
     }
   },
