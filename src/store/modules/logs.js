@@ -18,7 +18,7 @@ export default {
       api
         .getLogs()
         .then(r => {
-          commit("SET_LOGS", r.data);
+          commit("SET_LOGS", r.data.logs);
         })
         .catch(er => {
           const notification = {
@@ -33,7 +33,7 @@ export default {
       api
         .getLogs(itemsPerPage, startPage)
         .then(r => {
-          let totalItens = r.headers["x-total-count"] ?? 0;
+          let totalItens = r.headers["x-total-count"] ?? 1;
           let totalPage = Math.ceil(totalItens / itemsPerPage);
           commit("SET_LOGS_TOTAL_PAGES", totalPage);
           commit("SET_LOGS", r.data);
