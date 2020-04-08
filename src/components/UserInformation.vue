@@ -5,8 +5,8 @@
         <v-card color="grey lighten-4">
           <v-toolbar>
             <p class="mt-3">
-              Bem vindo Usuário. Seu token é:
-              091823mzxcvkasd908AShjkfd.XkdffvVVVV.13210983asbc
+              Bem vindo {{ this.userData.name }}. Seu token é:
+              {{ this.userData.token }}
             </p>
           </v-toolbar>
         </v-card>
@@ -16,10 +16,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: () => ({
     bars: [{ class: "" }]
-  })
+  }),
+  computed: {
+    ...mapState({
+      userData: "user"
+    })
+  }
 };
 </script>
 
