@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-app-bar height="40px" app color="primary lighten-1" dark>
-        <v-toolbar-title class="text-center">TryLog </v-toolbar-title>
+        <v-toolbar-title class="text-center">TryLog</v-toolbar-title>
 
         <v-spacer></v-spacer>
         <v-btn to="/" class="mr-1" text rounded>Início</v-btn>
@@ -16,7 +16,7 @@
           <!-- Notifications are avaiable for everyone-->
           <NotificationContainer />
 
-          <UserInformation v-show="authenticated" />
+          <UserInformation v-show="shouldShow" />
           <router-view></router-view>
         </v-container>
       </v-content>
@@ -28,6 +28,7 @@
 import Footer from "./views/Footer";
 import UserInformation from "./components/UserInformation";
 import NotificationContainer from "./components/NotificationContainer";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -37,13 +38,26 @@ export default {
   },
   data() {
     return {
-      authenticated: false
+      user: this.$store.state.user
     };
   },
   methods: {
     isUserLoggedOn() {
       this.authenticated = true;
     }
+  },
+  computed: {
+    shouldShow() {
+      console.log("mostrar esta do usuaário");
+      console.log(this.userState);
+      console.log("has?");
+      console.log(this.userState.hasOwnProperty("name"));
+      if (this.userState.hasOwnProperty("name")) return true;
+      return false;
+    },
+    ...mapState({
+      userState: "user"
+    })
   }
 };
 </script>
