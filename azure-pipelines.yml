@@ -21,17 +21,26 @@ steps:
   displayName: 'npm install and build'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publishing artefact'
+  displayName: 'Publishing artifact'
   inputs:
-    ArtifactName: 'trylog-artefact'
+    ArtifactName: 'trylog-artifact'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/bin/WebApp'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/bin/WebApp'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+    verbose: true
 - task: AzureRmWebAppDeployment@4
   displayName: 'Deploying to azure webapp'
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(37c74d79-8c5f-4873-bfe0-55fc8d34bf8d)'
-    appType: 'webAppLinux'    
+    appType: 'webAppLinux'
     WebAppName: 'trylog'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
     RuntimeStack: 'NODE|12-lts'
     StartupCommand: 'npm run serve'
