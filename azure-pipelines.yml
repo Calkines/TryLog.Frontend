@@ -30,10 +30,10 @@ steps:
     verbose: true
   displayName: 'Archiving dist files'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   inputs:
-    TargetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: FilePath
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    artifact: 'trylog-artifact'
+    publishLocation: pipeline
+  displayName: 'Publishing the build artifact'
   
