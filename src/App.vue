@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-app-bar height="40px" app color="primary lighten-1" dark>
-        <v-toolbar-title class="text-center">TryLog </v-toolbar-title>
+        <v-toolbar-title class="text-center">TryLog</v-toolbar-title>
 
         <v-spacer></v-spacer>
         <v-btn to="/" class="mr-1" text rounded>Início</v-btn>
