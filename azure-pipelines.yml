@@ -24,16 +24,14 @@ steps:
   displayName: 'Publishing artefact'
   inputs:
     ArtifactName: 'trylog-artefact'
-    publishLocation: FilePath
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/files'
 
 - task: AzureRmWebAppDeployment@4
   displayName: 'Deploying to azure webapp'
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(37c74d79-8c5f-4873-bfe0-55fc8d34bf8d)'
-    appType: 'webAppLinux'
+    appType: 'webAppLinux'    
     WebAppName: 'trylog'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/files'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
     RuntimeStack: 'NODE|12-lts'
     StartupCommand: 'npm run serve'
