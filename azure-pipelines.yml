@@ -28,11 +28,10 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
     replaceExistingArchive: true
     verbose: true
-
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
-    ArtifactName: 'trylog-artifact'
-    publishLocation: 'Container'
-  displayName: 'Publishing build artifact'
+    targetPath: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
+    artifact: 'trylog-artifact'
+    publishLocation: 'pipeline'
+  displayName: 'Publishing pipeline artifact'
 
