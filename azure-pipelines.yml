@@ -16,17 +16,19 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    cd 'TryLog.Frontend'
     npm install
     npm run build
   displayName: 'npm install and build'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    rootFolderOrFile: '$(Build.BinariesDirectory)/TryLog.Frontend'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
     replaceExistingArchive: true
+    verbose: true
 
 - task: PublishPipelineArtifact@1
   inputs:
