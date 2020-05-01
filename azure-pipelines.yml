@@ -16,13 +16,14 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    ls
     npm install
     npm run build:dev
   displayName: 'npm install and build'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    rootFolderOrFile: ''
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
