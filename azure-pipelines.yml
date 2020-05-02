@@ -21,18 +21,7 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- task: ArchiveFiles@2
+- task: PublishBuildArtifacts@1
   inputs:
-    rootFolderOrFile: 'dist'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
-    replaceExistingArchive: true
-    verbose: true
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
-    artifact: 'trylog-artifact'
-    publishLocation: 'pipeline'
-  displayName: 'Publishing pipeline artifact'
-
+    ArtifactName: dist
+    PathtoPublish: 'dist'
