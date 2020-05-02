@@ -18,12 +18,12 @@ steps:
 - script: |
     ls
     npm install
-    npm run build:dev
+    npm run build
   displayName: 'npm install and build'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: ''
+    rootFolderOrFile: 'dist'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/app-dev.zip'
