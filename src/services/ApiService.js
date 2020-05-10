@@ -1,6 +1,5 @@
 import axios from "axios";
-console.log("Process: ");
-console.log(process.env);
+
 const apiClient = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_URL,
   withCredentials: false,
