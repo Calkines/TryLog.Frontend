@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import error from "../store/modules/errors";
 import log from "../store/modules/logs";
 import statistic from "../store/modules/statistics";
+import userModule from "@/store/modules/users";
 import * as notification from "@/store/modules/notification";
 
 Vue.use(Vuex);
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     error,
     log,
     statistic,
-    notification
-  }
+    notification,
+    userModule,
+  },
 });

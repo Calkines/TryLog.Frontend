@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <v-app-bar height="40px" app color="primary lighten-1" dark>
+      <v-app-bar height="40px" app color="primary lighten-1" dark v-show="authenticated">
         <v-toolbar-title class="text-center">TryLog</v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -19,7 +19,7 @@
           <router-view></router-view>
         </v-container>
       </v-content>
-      <Footer />
+      <Footer v-show="authenticated" />
     </v-app>
   </div>
 </template>
