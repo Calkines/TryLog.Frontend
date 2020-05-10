@@ -18,9 +18,9 @@ export default {
     return apiClient.get("/errors");
   },
   getLogs() {
-    return apiClient.get("/events");
+    return apiClient.get("/logs");
   },
   getLogs(itensPerPage, startPage) {
-    return apiClient.get(`/events?_limit=${itensPerPage}&_page=${startPage}`);
+    return apiClient.get(`/logs?_limit=${itensPerPage}&_page=${startPage}`);
   }
 };
