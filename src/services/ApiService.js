@@ -22,7 +22,7 @@ export default {
   getLogs(itensPerPage, startPage) {
     return apiClient.get(`/log?_limit=${itensPerPage}&_page=${startPage}`);
   },
-  login() {
-    return apiClient.get("/auth");
+  login(credentials) {
+    return apiClient.post("/user/login", credentials);
   },
 };

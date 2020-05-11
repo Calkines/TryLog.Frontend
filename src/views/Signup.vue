@@ -26,9 +26,7 @@
             label="Aceita os termos e condições?"
             :rules="[rules.required]"
           />
-          <v-btn type="submit" color="primary" @click="validateForm($event)"
-            >Enviar</v-btn
-          >
+          <v-btn type="submit" color="primary" @click="validateForm($event)">Enviar</v-btn>
         </v-form>
       </v-col>
       <v-spacer></v-spacer>
@@ -37,6 +35,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: () => ({
     email: "",

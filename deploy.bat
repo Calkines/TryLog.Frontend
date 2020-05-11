@@ -1,4 +1,3 @@
-npm run build
-timeout 120
+npm run build | more
 scp -r .\dist\* root@206.189.72.23:/var/www/html
 
