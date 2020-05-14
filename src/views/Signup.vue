@@ -5,7 +5,7 @@
       <v-col cols="10" xl="6" lg="6" sm="6" xs="10">
         <h1>Registro</h1>
         <v-form ref="signUpForm" v-model="formValidity">
-          <v-text-field label="Nome" type="text" prepend-icon="fas fa-user" />
+          <v-text-field label="Nome" v-model="name" type="text" prepend-icon="fas fa-user" />
           <v-text-field
             v-model="email"
             label="E-mail"
@@ -16,7 +16,21 @@
           <v-text-field
             :type="showPassword ? 'text' : 'password'"
             label="Senha"
+            v-model="password"
             :rules="[rules.password, rules.length(6)]"
+            prepend-icon="fas fa-lock"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
+          ></v-text-field>
+          <v-text-field
+            :type="showPassword ? 'text' : 'password'"
+            label="Confirmação Senha"
+            v-model="passwordConfirm"
+            :rules="[
+              rules.password,
+              rules.length(6),
+              rules.passwordMatch(this.passwordConfirm, this.password),
+            ]"
             prepend-icon="fas fa-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
@@ -26,7 +40,12 @@
             label="Aceita os termos e condições?"
             :rules="[rules.required]"
           />
-          <v-btn type="submit" color="primary" @click="validateForm($event)">Enviar</v-btn>
+          <v-btn
+            type="submit"
+            color="primary"
+            @click.prevent="signUp"
+            :disabled="!formValidity"
+          >Enviar</v-btn>
         </v-form>
       </v-col>
       <v-spacer></v-spacer>
@@ -39,6 +58,9 @@ import { mapState } from "vuex";
 export default {
   data: () => ({
     email: "",
+    password: "",
+    passwordConfirm: "",
+    name: "",
     termsAccepted: false,
     showPassword: false,
     isLoading: false,
@@ -54,19 +76,29 @@ export default {
       password: v =>
         (v || "").match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
         "A senha precisa ter uma letra maiuscúla, um caracter número, e um caracter especial",
+      passwordMatch: (v, password) =>
+        v == password || "As senhas precisam ser iguais",
       required: v => !!v || "Este campo é necessário"
     }
   }),
   methods: {
-    resetForm() {
-      this.$refs.signUpForm.reset();
-    },
-    resetValidation() {
-      this.$refs.signUpForm.resetValidation();
-    },
-    validateForm(event) {
-      let isValid = this.$refs.signUpForm.validate();
-      if (!isValid) event.preventDefault();
+    signUp() {
+      console.log("cadastrando usuário", this.formValidity);
+      if (this.formValidity) {
+        this.$store
+          .dispatch("signup", {
+            fullName: this.name,
+            password: this.password,
+            email: this.email,
+            confirmPassword: this.passwordConfirm
+          })
+          .then(() => {
+            setTimeout(() => {
+              this.falhaAcesso = this.$store.state.userModule.user.hasLoginErrors;
+              this.mensagemFalha = this.$store.state.userModule.user.loginErrorMessage;
+            }, 400);
+          });
+      }
     }
   }
 };

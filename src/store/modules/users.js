@@ -11,7 +11,7 @@ export default {
   mutations: {
     SET_LOGIN(state, user) {
       if (user != "") {
-        localStorage.setItem("user", user);
+        localStorage.setItem("user", user.result);
         state.user.isLoggedIn = true;
         state.user.hasLoginErrors = false;
         state.user.loginErrorMessage = "";
@@ -31,16 +31,13 @@ export default {
       api
         .login(credentials)
         .then(({ data }) => {
-          console.log("após login: ", data);
           if (data.result == "Failed") {
             commit("SET_LOGIN_ERROR", data.message);
+          } else {
+            console.log("commiting login", data);
+            commit("SET_LOGIN", data);
+            return this;
           }
-          // if (
-          //   data ==
-          //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.EJzdDeNLOQhy-2WmXuK1B49xF17Tk0pja1tCPp81YjY"
-          // )
-          //   commit("SET_LOGIN", data);
-          // return this;
         })
         .catch(() => {
           commit("SET_LOGIN_ERROR", "Falha no processo de autenticação");
@@ -55,6 +52,17 @@ export default {
         location.reload();
         sessionStorage.clear();
       }
+    },
+    signup({ commit }, info) {
+      console.log("acessou signup modulo de user", info);
+      api
+        .singup(info)
+        .then(({ data }) => {
+          console.log("após signup", data);
+        })
+        .catch(() => {
+          console.log("falha no cadastro");
+        });
     },
   },
   getters: {

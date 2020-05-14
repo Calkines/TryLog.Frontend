@@ -25,4 +25,7 @@ export default {
   login(credentials) {
     return apiClient.post("/user/login", credentials);
   },
+  singup(data) {
+    return apiClient.post("/account", data);
+  },
 };

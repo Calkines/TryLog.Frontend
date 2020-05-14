@@ -1,3 +1,3 @@
-npm run build | more
+npm run build:dev | more
 scp -r .\dist\* root@206.189.72.23:/var/www/html
 

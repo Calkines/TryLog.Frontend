@@ -23,8 +23,8 @@
               <v-select
                 v-model="selectedEnviroments"
                 :items="lstEnvironments"
-                :item-text="item => item.description"
-                :item-value="item => item.id"
+                :item-text="(item) => item.description"
+                :item-value="(item) => item.id"
                 :menu-props="{ maxHeight: '200' }"
                 :no-data-text="'Nenhum ambiente disponível'"
                 label="Ambiente"
@@ -45,7 +45,7 @@
               <v-select
                 v-model="selectedFieldOrders"
                 :items="lstAvaiableFieldOrders"
-                :item-text="item => item.description"
+                :item-text="(item) => item.description"
                 :menu-props="{ maxHeight: '200' }"
                 label="Forma de Ordenação"
                 :no-data-text="'Nenhuma ordenação disponível'"
@@ -152,11 +152,11 @@ export default {
       lstEnvironments: [
         { id: 1, description: "Produção" },
         { id: 2, description: "Desenvolvimento" },
-        { id: 3, description: "Testes" }
+        { id: 3, description: "Testes" },
       ],
       lstAvaiableFieldOrders: [
         { id: 1, description: "Frequencia" },
-        { id: 2, description: "Level" }
+        { id: 2, description: "Level" },
       ],
       selected: [],
       headers: [
@@ -165,21 +165,21 @@ export default {
           align: "center",
           sortable: true,
           value: "severity",
-          width: 50
+          width: 50,
         },
         {
           text: "Log",
           sortable: false,
           value: "event",
-          align: "center"
+          align: "center",
         },
         {
           text: "Frequência",
           sortable: true,
           value: "quantity",
-          align: "right"
-        }
-      ]
+          align: "right",
+        },
+      ],
     };
   },
   methods: {
@@ -200,23 +200,23 @@ export default {
       let _pageStart = this.page ?? 1;
       this.$store.dispatch("fetchLogs", {
         itemsPerPage: _itemsPerPage,
-        startPage: _pageStart
+        startPage: _pageStart,
       });
       this.itemsPerPage = this.settedItemsPerPage;
-    }
+    },
   },
-  watch: {
-    multiple(val) {
-      if (val) this.selectedEnviroments = [this.selectedEnviroments];
-      else this.selectedEnviroments = this.selectedEnviroments[0] || "Foo";
-    }
-  },
+  // watch: {
+  //   multiple(val) {
+  //     if (val) this.selectedEnviroments = [this.selectedEnviroments];
+  //     else this.selectedEnviroments = this.selectedEnviroments[0] || "Foo";
+  //   }
+  // },
   computed: {
     Breakpoint() {
       return this.$vuetify.breakpoint.name;
     },
     ...mapState({
-      dataLogs: "log"
+      dataLogs: "log",
     }),
     classLegendPages() {
       let stringClasse = "";
@@ -244,23 +244,23 @@ export default {
       stringClasse += bpName == "md" ? "col-4" : "";
       stringClasse += bpName == "lg" ? "col-4" : "";
       return stringClasse;
-    }
+    },
   },
   created() {
-    this.$store.subscribe((mutation, state) => {
-      if (mutation.type == "SET_LOGS_TOTAL_PAGES") {
-        if (this.page > mutation.payload) {
-          this.page = 1;
-          this.fetchData();
-        }
-      }
-    });
+    // this.$store.subscribe((mutation, state) => {
+    //   if (mutation.type == "SET_LOGS_TOTAL_PAGES") {
+    //     if (this.page > mutation.payload) {
+    //       this.page = 1;
+    //       this.fetchData();
+    //     }
+    //   }
+    // });
   },
   beforeDestroy() {
     this.unsubscribe();
   },
   mounted() {
     this.fetchData();
-  }
+  },
 };
 </script>
