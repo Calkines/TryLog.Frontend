@@ -285,7 +285,13 @@ export default {
   mounted() {
     this.fetchEnvironments();
     this.fetchData();
-    this.selectedEnviroments.push(this.dataEnvironments.environments[0].id);
+    setTimeout(() => {
+      if (
+        this.dataEnvironments != undefined &&
+        this.dataEnvironments.environments.length > 0
+      )
+        this.selectedEnviroments.push(this.dataEnvironments.environments[0].id);
+    }, 200);
   }
 };
 </script>

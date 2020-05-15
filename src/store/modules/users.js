@@ -62,11 +62,11 @@ export default {
         sessionStorage.clear();
       }
     },
-    signup({ commit }, info) {
+    signup({}, info) {
       api
         .singup(info)
         .then(({ data }) => {
-          //console.log("após signup", data);
+          router.push({ path: "/login" });
         })
         .catch(() => {
           //console.log("falha no cadastro");
