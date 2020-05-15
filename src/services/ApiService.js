@@ -21,8 +21,13 @@ export default {
   getLogs() {
     return apiClient.get("/log");
   },
-  getLogs(itensPerPage, startPage) {
-    return apiClient.get(`/log?_limit=${itensPerPage}&_page=${startPage}`);
+  getLogs(itensPerPage, startPage, idEnvironments) {
+    return apiClient.get(
+      `/log?itemsPerPage=${itensPerPage}&pageStart=${startPage}&idsEnv=${idEnvironments}`
+    );
+  },
+  getEnvironments() {
+    return apiClient.get("/environment");
   },
   login(credentials) {
     return apiClient.post("/user/login", credentials);

@@ -7,6 +7,7 @@ import statistic from "../store/modules/statistics";
 import userModule from "@/store/modules/users";
 import * as notification from "@/store/modules/notification";
 import createPersistedState from "vuex-persistedstate";
+import environment from "@/store/modules/environments";
 
 Vue.use(Vuex);
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     statistic,
     notification,
     userModule,
+    environment,
   },
 });

@@ -83,7 +83,6 @@ export default {
   }),
   methods: {
     signUp() {
-      console.log("cadastrando usuário", this.formValidity);
       if (this.formValidity) {
         this.$store
           .dispatch("signup", {

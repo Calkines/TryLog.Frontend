@@ -22,7 +22,7 @@
             <v-col class="d-flex" cols="12" lg="2" md="3" sm="6">
               <v-select
                 v-model="selectedEnviroments"
-                :items="lstEnvironments"
+                :items="dataEnvironments.environments"
                 :item-text="(item) => item.description"
                 :item-value="(item) => item.id"
                 :menu-props="{ maxHeight: '200' }"
@@ -35,9 +35,10 @@
                   <v-chip v-if="index === 0" x-small>
                     <span>{{ item.description }}</span>
                   </v-chip>
-                  <span v-if="index === 1" class="grey--text caption"
-                    >(+{{ selectedEnviroments.length - 1 }} outros)</span
-                  >
+                  <span
+                    v-if="index === 1"
+                    class="grey--text caption"
+                  >(+{{ selectedEnviroments.length - 1 }} outros)</span>
                 </template>
               </v-select>
             </v-col>
@@ -66,12 +67,9 @@
               clearable
               @click:clear.prevent="clearSelected"
             ></v-select>
-          </v-col> -->
+            </v-col>-->
             <v-col class="d-flex" cols="12" lg="8" md="6" sm="12">
-              <v-text-field
-                label="Buscar na base"
-                prepend-inner-icon="fas fa-search"
-              ></v-text-field>
+              <v-text-field label="Buscar na base" prepend-inner-icon="fas fa-search"></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -93,10 +91,12 @@
           </v-row>
         </v-container>
       </template>
-      <template v-slot:item.severity="{ item }">
-        <v-chip :color="getColor(item.severity)" dark>{{
-          item.severity
-        }}</v-chip>
+      <template v-slot:item.severity.description="{ item }">
+        <v-chip :color="getColor(item.severity.description)" dark>
+          {{
+          item.severity.description
+          }}
+        </v-chip>
       </template>
       <template v-slot:item.event="{ item }">
         <div>{{ item.event.description }}</div>
@@ -107,7 +107,7 @@
     <v-container fluid>
       <v-row class="d-flex flex-row text-center" justify="end" align="center">
         <v-col :class="classLegendPages">
-          <span> Página {{ page }} de {{ dataLogs.logsTotalPages }} </span>
+          <span>Página {{ page }} de {{ dataLogs.logsTotalPages }}</span>
         </v-col>
         <v-col :class="classPaginator">
           <v-pagination
@@ -143,7 +143,7 @@ export default {
       internalLogs: [],
       page: 1,
       itemsPerPage: 3,
-      settedItemsPerPage: 5,
+      settedItemsPerPage: 10,
       search: "",
       selectSlot: false,
       totalPages: this.$store.state.log.logsTotalPages,
@@ -152,11 +152,11 @@ export default {
       lstEnvironments: [
         { id: 1, description: "Produção" },
         { id: 2, description: "Desenvolvimento" },
-        { id: 3, description: "Testes" },
+        { id: 3, description: "Testes" }
       ],
       lstAvaiableFieldOrders: [
         { id: 1, description: "Frequencia" },
-        { id: 2, description: "Level" },
+        { id: 2, description: "Level" }
       ],
       selected: [],
       headers: [
@@ -164,46 +164,57 @@ export default {
           text: "Level",
           align: "center",
           sortable: true,
-          value: "severity",
-          width: 50,
+          value: "severity.description",
+          width: 50
+        },
+        {
+          text: "Ambiente",
+          sortable: false,
+          value: "environment.description",
+          align: "center"
         },
         {
           text: "Log",
           sortable: false,
-          value: "event",
-          align: "center",
+          value: "description",
+          align: "center"
         },
         {
           text: "Frequência",
           sortable: true,
-          value: "quantity",
-          align: "right",
-        },
-      ],
+          value: "4",
+          align: "right"
+        }
+      ]
     };
   },
   methods: {
     getColor(severity) {
-      if (severity == "error") return "red";
-      else if (severity == "warning") return "orange";
+      if (severity == "Alto") return "red";
+      else if (severity == "Médio") return "orange";
       else return "green";
     },
     clearSelected() {
       this.selectedFieldsFind = [];
     },
     pesquisar() {
-      this.fetchData();
       this.page = 1;
+      this.fetchData();
     },
     fetchData() {
       let _itemsPerPage = this.settedItemsPerPage ?? 5;
       let _pageStart = this.page ?? 1;
+      let _selectedEnv = this.selectedEnviroments ?? "";
       this.$store.dispatch("fetchLogs", {
         itemsPerPage: _itemsPerPage,
         startPage: _pageStart,
+        selectedEnv: _selectedEnv
       });
       this.itemsPerPage = this.settedItemsPerPage;
     },
+    fetchEnvironments() {
+      this.$store.dispatch("fetchEnvironments");
+    }
   },
   // watch: {
   //   multiple(val) {
@@ -217,6 +228,7 @@ export default {
     },
     ...mapState({
       dataLogs: "log",
+      dataEnvironments: "environment"
     }),
     classLegendPages() {
       let stringClasse = "";
@@ -244,23 +256,25 @@ export default {
       stringClasse += bpName == "md" ? "col-4" : "";
       stringClasse += bpName == "lg" ? "col-4" : "";
       return stringClasse;
-    },
+    }
   },
   created() {
-    // this.$store.subscribe((mutation, state) => {
-    //   if (mutation.type == "SET_LOGS_TOTAL_PAGES") {
-    //     if (this.page > mutation.payload) {
-    //       this.page = 1;
-    //       this.fetchData();
-    //     }
-    //   }
-    // });
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type == "SET_LOGS_TOTAL_PAGES") {
+        if (this.page > mutation.payload) {
+          this.page = 1;
+          this.fetchData();
+        }
+      }
+    });
   },
   beforeDestroy() {
-    this.unsubscribe();
+    //this.unsubscribe();
   },
   mounted() {
+    this.fetchEnvironments();
     this.fetchData();
-  },
+    this.selectedEnviroments.push(this.dataEnvironments.environments[0]);
+  }
 };
 </script>

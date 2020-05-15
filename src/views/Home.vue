@@ -4,6 +4,7 @@
       <h1 class="text-center display-4 mb-5">Resumo de Operações</h1>
     </v-content>
     <v-row justify="center">
+      <v-progress-circular class="d-flex justify-center" :size="70" :width="7" color="purple"></v-progress-circular>
       <v-col
         class="d-flex justify-center align-self-center"
         fluid
@@ -14,7 +15,7 @@
         md="3"
         lg="3"
       >
-        <StatisticCard :statistic="statistic" />
+        <StatisticCard :isLoading="statistic == null" :statistic="statistic" />
       </v-col>
     </v-row>
 

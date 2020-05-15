@@ -43,8 +43,9 @@ export default {
             commit("SET_LOGIN_ERROR", data.message);
           } else {
             commit("SET_LOGIN", data);
-            console.log("tentando redirecionar usuário");
-            router.push({ path: "/" });
+            setTimeout(() => {
+              router.push({ path: "/" });
+            }, 1600);
           }
         })
         .catch(() => {
@@ -62,14 +63,13 @@ export default {
       }
     },
     signup({ commit }, info) {
-      console.log("acessou signup modulo de user", info);
       api
         .singup(info)
         .then(({ data }) => {
-          console.log("após signup", data);
+          //console.log("após signup", data);
         })
         .catch(() => {
-          console.log("falha no cadastro");
+          //console.log("falha no cadastro");
         });
     },
     limparErrosLogin({ commit }) {

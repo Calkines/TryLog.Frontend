@@ -1,3 +1,3 @@
 npm run build:dev | more
-scp -r .\dist\* root@206.189.72.23:/var/www/html
+scp -r .\dist\* calkines@191.238.215.147:/var/www/html
 

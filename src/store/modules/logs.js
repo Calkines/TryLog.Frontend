@@ -18,8 +18,7 @@ export default {
       api
         .getLogs()
         .then((r) => {
-          console.log("getting logs", r.data);
-          commit("SET_LOGS", r.data);
+          commit("SET_LOGS", r.data.data);
         })
         .catch((er) => {
           const notification = {
@@ -30,14 +29,14 @@ export default {
           dispatch("notification/add", notification, { root: true });
         });
     },
-    fetchLogs({ commit, dispatch }, { itemsPerPage, startPage }) {
+    fetchLogs({ commit, dispatch }, { itemsPerPage, startPage, selectedEnv }) {
       api
-        .getLogs(itemsPerPage, startPage)
+        .getLogs(itemsPerPage, startPage, selectedEnv)
         .then((r) => {
-          let totalItens = r.headers["x-total-count"] ?? 0;
+          let totalItens = r.headers["x-total-count"] ?? r.data.totalItemCount;
           let totalPage = Math.ceil(totalItens / itemsPerPage);
           commit("SET_LOGS_TOTAL_PAGES", totalPage);
-          commit("SET_LOGS", r.data);
+          commit("SET_LOGS", r.data.data);
         })
         .catch((er) => {
           const notification = {
