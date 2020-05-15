@@ -27,9 +27,7 @@
             </v-form>
           </v-card-text>
           <div>
-            <p v-if="hasLoginErrors" class="text-center red lighten-2">
-              {{ mensagemFalhaLogin }}
-            </p>
+            <p v-if="hasLoginErrors" class="text-center red lighten-2">{{ mensagemFalhaLogin }}</p>
           </div>
           <v-divider></v-divider>
           <v-card-actions>
@@ -39,17 +37,9 @@
               x-small
               rounded
               @click="() => this.$router.push({ path: '/signup' })"
-              >Registrar</v-btn
-            >
+            >Registrar</v-btn>
             <v-spacer></v-spacer>
-            <v-btn
-              color="info"
-              x-small
-              rounded
-              @click="validarAcesso"
-              :disabled="!valid"
-              >Acessar</v-btn
-            >
+            <v-btn color="info" x-small rounded @click="validarAcesso" :disabled="!valid">Acessar</v-btn>
             <v-spacer></v-spacer>
           </v-card-actions>
           <v-card-actions>
@@ -75,20 +65,20 @@ export default {
       falhaAcesso: false,
       mensagemFalha: "",
       rules: {
-        email: (v) =>
+        email: v =>
           /^([a-zA-Z0-9_\-\\.]+)@([a-zA-Z0-9_\-\\.]+)\.([a-zA-Z]{2,5})$/g.test(
             v || ""
           ) || "Por favor informe um e-mail valido",
-        length: (len) => (v) =>
+        length: len => v =>
           (v || "").length >= len ||
           `Tamanho já inválido, necessário ${len} caracteres`,
-        password: (v) =>
+        password: v =>
           (v || "").match(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
           ) ||
           "A senha precisa ter uma letra maiuscúla, um caracter número, e um caracter especial",
-        required: (v) => !!v || "Este campo é necessário",
-      },
+        required: v => !!v || "Este campo é necessário"
+      }
     };
   },
   methods: {
@@ -96,28 +86,24 @@ export default {
       this.$store
         .dispatch("login", {
           email: this.email,
-          password: this.password,
+          password: this.password
         })
         .then(() => {
           setTimeout(() => {
             this.falhaAcesso = this.$store.state.userModule.user.hasLoginErrors;
             this.mensagemFalha = this.$store.state.userModule.user.loginErrorMessage;
-            console.log(
-              "checking user key: ",
-              localStorage["user"] != undefined
-            );
-            if (localStorage["user"] != undefined)
-              this.$router.push({ path: "/" });
-          }, 800);
+          }, 200);
         });
-    },
+    }
   },
   computed: {
     ...mapGetters(["hasLoginErrors", "mensagemFalhaLogin"]),
     isValid() {
-      console.log("acessou is valid", this.valid);
       return false;
-    },
+    }
   },
+  created() {
+    this.$store.dispatch("limparErrosLogin");
+  }
 };
 </script>

@@ -1,5 +1,7 @@
 import axios from "axios";
-
+axios.defaults.headers.common = {
+  Authorization: `Bearer ${localStorage.getItem("user")}`,
+};
 const apiClient = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_URL,
   withCredentials: false,

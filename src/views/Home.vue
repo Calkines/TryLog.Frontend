@@ -1,9 +1,9 @@
 <template>
-  <v-container fill-height>
+  <v-container fill-height fluid>
     <v-content>
-      <h1 class="text-center">Resumo de Operações</h1>
+      <h1 class="text-center display-4 mb-5">Resumo de Operações</h1>
     </v-content>
-    <v-row>
+    <v-row justify="center">
       <v-col
         class="d-flex justify-center align-self-center"
         fluid
@@ -18,13 +18,8 @@
       </v-col>
     </v-row>
 
-    <v-row class="mt-5">
-      <v-col
-        v-for="ele in dataGraphError.errors"
-        :key="`${ele.title}`"
-        cols="12"
-        md="4"
-      >
+    <v-row class="mt-5" justify="center">
+      <v-col v-for="ele in dataGraphError.errors" :key="`${ele.title}`" cols="12" md="4">
         <ErrosGraph :erro="ele" />
       </v-col>
     </v-row>

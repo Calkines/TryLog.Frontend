@@ -2,7 +2,7 @@
   <v-card :color="erro.color" dark>
     <v-card-text>
       <v-sparkline
-        :value="erro.erros"
+        :value="erro.errors"
         :labels="erro.labels"
         color="rgba(255, 255, 255, .7)"
         height="100"

@@ -1,5 +1,5 @@
 import api from "@/services/ApiService";
-
+import router from "@/router/index.js";
 export default {
   state: {
     user: {
@@ -21,9 +21,17 @@ export default {
       state.user.isLoggedIn = false;
       state.user.hasLoginErrors = true;
       state.user.loginErrorMessage = message;
+      // setTimeout(() => {
+      //   state.user.hasLoginErrors = false;
+      //   state.user.loginErrorMessage = "";
+      // }, 1600);
     },
     CLEAR_USER(state) {
       state.user = null;
+    },
+    CLEAR_USER_LOGIN_ERROS(state) {
+      state.user.hasLoginErrors = false;
+      state.user.loginErrorMessage = "";
     },
   },
   actions: {
@@ -34,9 +42,9 @@ export default {
           if (data.result == "Failed") {
             commit("SET_LOGIN_ERROR", data.message);
           } else {
-            console.log("commiting login", data);
             commit("SET_LOGIN", data);
-            return this;
+            console.log("tentando redirecionar usuário");
+            router.push({ path: "/" });
           }
         })
         .catch(() => {
@@ -63,6 +71,9 @@ export default {
         .catch(() => {
           console.log("falha no cadastro");
         });
+    },
+    limparErrosLogin({ commit }) {
+      commit("CLEAR_USER_LOGIN_ERROS");
     },
   },
   getters: {

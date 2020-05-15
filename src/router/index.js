@@ -53,7 +53,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  // debugger;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
+    console.log(Store.state.userModule.user.isLoggedIn);
     if (!Store.state.userModule.user.isLoggedIn) next({ path: "/login" });
     else next();
   } else next();
