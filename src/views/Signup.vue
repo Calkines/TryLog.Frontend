@@ -40,6 +40,7 @@
             label="Aceita os termos e condições?"
             :rules="[rules.required]"
           />
+          <v-btn type="submit" color="warning" @click.prevent="navagateLogin">Cancelar</v-btn>
           <v-btn
             type="submit"
             color="primary"
@@ -98,6 +99,9 @@ export default {
             }, 400);
           });
       }
+    },
+    navagateLogin() {
+      this.$router.push({ path: "/" });
     }
   }
 };
