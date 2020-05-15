@@ -8,6 +8,7 @@
       class="elevation-1"
       :single-select="false"
       :search="search"
+      :loading="isLogLoading"
       show-select
       ref="myDataTb"
       :page.sync="page"
@@ -69,7 +70,11 @@
             ></v-select>
             </v-col>-->
             <v-col class="d-flex" cols="12" lg="8" md="6" sm="12">
-              <v-text-field label="Buscar na base" prepend-inner-icon="fas fa-search"></v-text-field>
+              <v-text-field
+                v-model="dbSearch"
+                label="Buscar na base"
+                prepend-inner-icon="fas fa-search"
+              ></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -145,6 +150,7 @@ export default {
       itemsPerPage: 3,
       settedItemsPerPage: 10,
       search: "",
+      dbSearch: "",
       selectSlot: false,
       totalPages: this.$store.state.log.logsTotalPages,
       selectedFieldOrders: [],
@@ -182,7 +188,7 @@ export default {
         {
           text: "Frequência",
           sortable: true,
-          value: "4",
+          value: "frequency",
           align: "right"
         }
       ]
@@ -205,10 +211,12 @@ export default {
       let _itemsPerPage = this.settedItemsPerPage ?? 5;
       let _pageStart = this.page ?? 1;
       let _selectedEnv = this.selectedEnviroments ?? "";
+      let _search = this.dbSearch ?? "";
       this.$store.dispatch("fetchLogs", {
         itemsPerPage: _itemsPerPage,
         startPage: _pageStart,
-        selectedEnv: _selectedEnv
+        selectedEnv: _selectedEnv,
+        query: _search
       });
       this.itemsPerPage = this.settedItemsPerPage;
     },
@@ -229,6 +237,9 @@ export default {
     ...mapState({
       dataLogs: "log",
       dataEnvironments: "environment"
+    }),
+    ...mapGetters({
+      isLogLoading: "isLoadingLog"
     }),
     classLegendPages() {
       let stringClasse = "";
@@ -274,7 +285,7 @@ export default {
   mounted() {
     this.fetchEnvironments();
     this.fetchData();
-    this.selectedEnviroments.push(this.dataEnvironments.environments[0]);
+    this.selectedEnviroments.push(this.dataEnvironments.environments[0].id);
   }
 };
 </script>

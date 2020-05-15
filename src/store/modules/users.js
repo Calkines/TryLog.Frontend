@@ -6,12 +6,14 @@ export default {
       isLoggedIn: false,
       loginErrorMessage: "",
       hasLoginErrors: false,
+      token: "",
     },
   },
   mutations: {
     SET_LOGIN(state, user) {
       if (user != "") {
         localStorage.setItem("user", user.result);
+        state.user.token = user.result;
         state.user.isLoggedIn = true;
         state.user.hasLoginErrors = false;
         state.user.loginErrorMessage = "";
@@ -43,9 +45,7 @@ export default {
             commit("SET_LOGIN_ERROR", data.message);
           } else {
             commit("SET_LOGIN", data);
-            setTimeout(() => {
-              router.push({ path: "/" });
-            }, 1600);
+            router.push({ path: "/" });
           }
         })
         .catch(() => {
@@ -82,6 +82,9 @@ export default {
     },
     mensagemFalhaLogin(state) {
       return state.user.loginErrorMessage;
+    },
+    isLoggedIn(state) {
+      return state.user.isLoggedIn;
     },
   },
 };

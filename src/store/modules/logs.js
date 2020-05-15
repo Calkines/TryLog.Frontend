@@ -29,9 +29,12 @@ export default {
           dispatch("notification/add", notification, { root: true });
         });
     },
-    fetchLogs({ commit, dispatch }, { itemsPerPage, startPage, selectedEnv }) {
+    fetchLogs(
+      { commit, dispatch },
+      { itemsPerPage, startPage, selectedEnv, query }
+    ) {
       api
-        .getLogs(itemsPerPage, startPage, selectedEnv)
+        .getLogs(itemsPerPage, startPage, selectedEnv, query)
         .then((r) => {
           let totalItens = r.headers["x-total-count"] ?? r.data.totalItemCount;
           let totalPage = Math.ceil(totalItens / itemsPerPage);
@@ -48,5 +51,9 @@ export default {
         });
     },
   },
-  getters: {},
+  getters: {
+    isLoadingLog(state) {
+      return state.logs.length == 0;
+    },
+  },
 };

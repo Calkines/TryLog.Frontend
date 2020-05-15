@@ -4,10 +4,12 @@
       <v-col class="d-flex flex-column align-self-start justify-center">
         <v-card color="grey lighten-4">
           <v-toolbar>
-            <p class="mt-3">
-              Bem vindo Usuário. Seu token é:
-              091823mzxcvkasd908AShjkfd.XkdffvVVVV.13210983asbc
-            </p>
+            <div class="mt-3">
+              Bem vindo
+              <strong>Novo Colaborador do Itaú</strong>
+              . Seu token é:
+              {{ dataUser.user.token.substr(0,80) }}...
+            </div>
           </v-toolbar>
         </v-card>
       </v-col>
@@ -16,10 +18,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: () => ({
     bars: [{ class: "" }]
-  })
+  }),
+  computed: {
+    ...mapState({
+      dataUser: ["userModule"]
+    })
+  }
 };
 </script>
 
