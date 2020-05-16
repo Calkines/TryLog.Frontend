@@ -1,11 +1,9 @@
 <template>
   <v-card :color="erro.color" dark>
     <v-card-text>
-      <div class="d-flex justify-space-between">
-        <span class="title">Passado</span>
+      <div class="d-flex flex-row justify-end">
         <v-icon :color="'white'" class="fas fa-long-arrow-alt-left" size="32"></v-icon>
-        <v-icon :color="'white'" class="fas fa-long-arrow-alt-right" size="32"></v-icon>
-        <span class="title">Futuro</span>
+        <span class="title">Passado</span>
       </div>
 
       <v-sparkline
